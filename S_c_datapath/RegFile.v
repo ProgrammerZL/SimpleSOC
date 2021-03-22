@@ -36,12 +36,25 @@ module RegFile(
   input   [4:0]   write_reg;
   input   [31:0]  write_data;
   input           reg_write;
-  output  [31:0]  read_data1;
-  output  [31:0]  read_data2;
+  output  reg [31:0]  read_data1;
+  output  reg [31:0]  read_data2;
   
   reg     [31:0]  register  [0:31];
   
-  integer i;
-  
+  // Read/Write Data
+    always @(*)
+        begin
+            if(reg1 == 5'b000)
+                read_data1 <= 32'b0;
+            else
+                read_data1 <= register[reg1];
+            if(reg2 == 5'b000)
+                read_data2 <= 32'b0;
+            else
+                read_data2 <= register[reg2];
+            if(reg_write == 1)
+                register[write_reg] <= write_data;
+        end
+endmodule
   
   
