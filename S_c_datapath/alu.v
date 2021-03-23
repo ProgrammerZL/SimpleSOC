@@ -19,7 +19,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module alu(data_in1, data_in2, ALUOp, ALUOutput, Zero)
+module alu(
+  data_in1, 
+  data_in2, 
+  ALUOp, 
+  ALUOutput, 
+  Zero
+);
   
   input   [31:0]  data_in1;
   input   [31:0]  data_in2;
@@ -27,6 +33,8 @@ module alu(data_in1, data_in2, ALUOp, ALUOutput, Zero)
   
   output reg  [31:0]  ALUOutput;
   output  Zero;
+  
+  assign Zero = (ALUOutput == 0);
   
   always @(data_in1, data_in2, ALUOp) begin
     case (ALUOp)
