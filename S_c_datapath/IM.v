@@ -33,6 +33,6 @@ module I_M(clk, r_addr, instr);
         $readmemb("instruction.txt", memory);
     end
   
-    assign instr = memory[addr>>2];
+    assign instr = memory[r_addr>>2];
   
 endmodule
