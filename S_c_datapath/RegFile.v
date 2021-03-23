@@ -20,41 +20,37 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module RegFile(
-    clk,
-    reg1,
-    reg2,
-    write_reg,
-    write_data,
-    read_data1,
-    read_data2,
+    clk, 
+    r_reg1, 
+    r_reg2, 
+    w_reg, 
+    w_data, 
+    r_data1, 
+    r_data2, 
     reg_write
 );
-  
-  input           clk;
-  input   [4:0]   reg1;
-  input   [4:0]   reg2;
-  input   [4:0]   write_reg;
-  input   [31:0]  write_data;
-  input           reg_write;
-  output  reg [31:0]  read_data1;
-  output  reg [31:0]  read_data2;
-  
-  reg     [31:0]  register  [0:31];
-  
-  // Read/Write Data
-    always @(*)
+    input clk;
+    input reg_write;
+    input [4:0] r_reg1;
+    input [4:0] r_reg2;
+    input [4:0] w_reg;
+    input [31:0] w_data;
+    output [31:0]   r_data1;
+    output [31:0]   r_data2;
+    
+    reg [31:0] reg_mem [0:31];
+    
+    always @(posedge clk)
         begin
-            if(reg1 == 5'b000)
-                read_data1 <= 32'b0;
+            if(reg_write)
+                reg_mem[w_reg] <= w_data;
+            if(r_reg1 == 5'b0)
+                r_data1 <= 32'b0;
             else
-                read_data1 <= register[reg1];
-            if(reg2 == 5'b000)
-                read_data2 <= 32'b0;
+                r_data1 <= reg_mem[r_reg1];
+            if(r_reg2 == 5'b0)
+                r_data2 <= 5'b0;
             else
-                read_data2 <= register[reg2];
-            if(reg_write == 1)
-                register[write_reg] <= write_data;
+                r_data2 <= reg_mem[r_reg2];
         end
 endmodule
-  
-  
