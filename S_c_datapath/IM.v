@@ -5,7 +5,7 @@
 // 
 // Create Date:    09:35:28 03/22/2021 
 // Design Name:    Zezhong Wang
-// Module Name:    InstructionM 
+// Module Name:    IM 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -19,27 +19,20 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-module I_M(
-    Addr,
-    instr
-);
-  
-  input   [31:0]  Addr;
-  output  [31:0]  instr;
-  
-  reg   [31:0]  memory [0 : 255];
-  
-  integer i;
-  
-  initial begin
-    for(i = 0; i < 256; i++)  begin
-      memory[i] = 32'b0;
-    end
+module I_M(clk, r_addr, instr);
+    
+    input   clk;
+    input       [31:0]  r_addr;
+    output  reg [31:0]  instr;
+    // Instruction memory is byte addressable, which include 256 32-bit words
+    reg [31:0]  memory [0 : 255];
+ 
     
     // Load Instruction
-    $readmemb("instruction.txt", memory);
-  end
+    initial begin
+        $readmemb("instruction.txt", memory);
+    end
   
-  assign instr = memory[addr>>2];
+    assign instr = memory[addr>>2];
   
 endmodule
