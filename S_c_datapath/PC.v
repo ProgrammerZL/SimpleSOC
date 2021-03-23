@@ -21,22 +21,21 @@
 
 module PC(
     clk,
-    input_pc,
-    output_pc,
+    pc_in,
+    pc_out,
     rst_n
 );
-  
-  reg   [31:0]  output_pc;
+    input clk;
+    input rst_n;
+    input      [31:0]    pc_in;
+    output reg [31:0]    pc_out;
+   
   
   always @(posedge clk or negedge rst_n)
     begin
       if(~rst_n == 1)
-        begin
-          output_pc <= 32'b0;
-        end
+          pc_out <= 32'b0;
       else
-        begin
-          output_pc <= input_pc;
-        end
+          pc_out <= pc_in + 4;
     end
 endmodule
