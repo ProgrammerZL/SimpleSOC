@@ -90,7 +90,7 @@ module CPU(
             .ALUOp(aluctrl);
             // output
             .Zero(Zero),
-            .ALUOutput(addr)
+            .ALUOutput(ALUOutput)
       );
       
       // Connect to ALUCtrl
@@ -150,8 +150,47 @@ module CPU(
       output wire [31:0] r_data;
       DM dm_0(
             .clk(clk),
-            .addr(addr),
+            .addr(ALUOutput),
+            .r_mem(MemRead),
+            .w_mem(MemWrite),
             .dm_w_data(r_data2),
             //
             .r_data(r_data)
+      );
+      
+      // Connect to Memory MUX
+      output wire [31:0] w_data;
+      MemMUX memmux_0(
+            .r_data(r_data),
+            .ALUOutput(ALUOutput),
+            .MemtoReg(MemtoReg),
+            //
+            .w_data(w_data)
+      );
+      
+      // Connect to MUXtoPC
+      output wire [31:0] pc_in;
+      MUXtoPC muxtopc_0(
+            .pc_out(pc_out),
+            .add_out(add_out),
+            .and_out(and_out),
+            //
+            .pc_in(pc_in)
+      );
+      
+      // Connect to MainCtrl
+      output wire RegDst, Branch, MemRead, RegWrite;
+      output wire MemtoReg, ALUSrc, MemWrite;
+      output wire [1:0] ALUOp;
+      MainCtrl mainctrl_0(
+            .Opcode(instr[31:26]),
+            //
+            .RegDst(RegDst),
+            .Branch(Branch),
+            .MemRead(MemRead),
+            .MemtoReg(MemtoReg),
+            .ALUOp(ALUOp),
+            .MemWrite(MemWrite),
+            .ALUSrc(ALUSrc),
+            .RegWrite(RegWrite)
       );
