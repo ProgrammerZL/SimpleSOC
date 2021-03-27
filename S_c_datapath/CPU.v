@@ -84,7 +84,7 @@ module CPU(
 // Connect to ALU
       output wire [31:0] ALUOutput;
       output wire Zero;
-      ALU(
+      ALU alu_0(
             .data_in1(r_data1),
             .data_in2(data_in2),
             .ALUOp(ALUCtrl);
@@ -93,4 +93,12 @@ module CPU(
             .ALUOutput(addr)
       );
 // Connect to ALUCtrl
-      output
+      output wire [3:0] ALUCtrl;
+      ALUCtrl aluctrl_0(
+            .ALUOp(ALUOp),
+            .OpField(instr[5:0])
+            //
+            .ALUCtrl(ALUCtrl)
+      );
+
+      // Connect to 
