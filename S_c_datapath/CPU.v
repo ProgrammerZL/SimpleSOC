@@ -89,5 +89,8 @@ module CPU(
             .data_in2(data_in2),
             .ALUOp(ALUCtrl);
             // output
-            .Zero()
+            .Zero(Zero),
+            .ALUOutput(addr)
       );
+// Connect to ALUCtrl
+      output
