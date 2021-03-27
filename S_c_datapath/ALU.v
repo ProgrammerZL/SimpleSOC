@@ -5,7 +5,7 @@
 // 
 // Create Date:    19:48:20 03/22/2021 
 // Design Name:    Zezhong Wang
-// Module Name:    alu 
+// Module Name:    ALU 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
