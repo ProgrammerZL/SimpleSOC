@@ -81,24 +81,77 @@ module CPU(
        .r_data2(r_data2)
  );
 
-// Connect to ALU
+      // Connect to ALU
       output wire [31:0] ALUOutput;
       output wire Zero;
       ALU alu_0(
             .data_in1(r_data1),
             .data_in2(data_in2),
-            .ALUOp(ALUCtrl);
+            .ALUOp(aluctrl);
             // output
             .Zero(Zero),
             .ALUOutput(addr)
       );
-// Connect to ALUCtrl
+      
+      // Connect to ALUCtrl
       output wire [3:0] ALUCtrl;
       ALUCtrl aluctrl_0(
-            .ALUOp(ALUOp),
-            .OpField(instr[5:0])
+            .aluop(aluop),
+            .opfield(instr[5:0])
             //
-            .ALUCtrl(ALUCtrl)
+            .aluctrl(aluctrl)
+      );
+      
+      // Connect to ALUAdd
+      output wire [31:0] add_out;
+      ALUAdd aluadd(
+            .pc_out(pc_out),
+            .slout(slout),
+            //
+            .add_out(add_out)
       );
 
-      // Connect to 
+      // Connect to Sign Extend
+      output wire [31:0] ext_result;
+      SE se_0(
+            .instr(instr[15:0]),
+            //output
+            .ext_result(ext_result)
+      );
+      
+      // Connect to Shift Logic
+      output wire [31:0] slout;
+      SL sl_0(
+            .ext_result(ext_result),
+            // output
+            .slout(slout)
+      );
+      
+      // Connect to ALU MUX
+      output wire [31:0] data_in2;
+      ALUMUX alumux_0(
+            .r_data2(r_data2),
+            .ALUSrc(ALUSrc),
+            .ext_result(ext_result),
+            // output
+            .data_in2(data_in2)
+      );
+      
+      // Connect to AND Gate
+      output wire and_out;
+      ANDGate andgate_0(
+            .Branch(Branch),
+            .Zero(Zero),
+            //
+            and_out
+      );
+      
+      // Connect to DM
+      output wire [31:0] r_data;
+      DM dm_0(
+            .clk(clk),
+            .addr(addr),
+            .dm_w_data(r_data2),
+            //
+            .r_data(r_data)
+      );
