@@ -22,7 +22,7 @@
 module DM(
     clk, 
     addr, 
-    w_data, 
+    dm_w_data, 
     r_data, 
     r_mem,
     w_mem
@@ -30,7 +30,7 @@ module DM(
     
     input clk;
     input [31:0]    addr;
-    input [31:0]    w_data;
+    input [31:0]    dm_w_data;
     input r_mem;
     input w_mem;
     output [31:0]   r_data;
@@ -53,7 +53,7 @@ module DM(
     always @(posedge clk)
         begin
             if(w_mem == 1)
-                memory[addr>>2] <= w_data;
+                memory[addr>>2] <= dm_w_data;
         end
     
     always @(negedge clk)
