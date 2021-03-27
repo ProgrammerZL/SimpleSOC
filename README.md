@@ -19,3 +19,7 @@ In s_c_datapath folder. This Single cycle Datapath just a structure of CPU modul
 13. Branch    0        0     0      1
 14. ALUOp1    1        0     0      0
 15. ALUOp2    0        0     0      1
+## Mission 1--Finished Build Single Cycle Datapath
+In the S_c_datapath folder, it include all of files to build a single cycle datapath. And I finished it on Mar.27.2021.
+
+## Mission 2--Build Pipeline Datapath
