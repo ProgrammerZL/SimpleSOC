@@ -59,4 +59,35 @@ module CPU(
   
   // Connect to RegMUX which is between Register File and Instruction Memory
   output wire [4:0] w_reg;
-  RegMux
+  RegMUX regmux_0(
+        .instr1(instr[20:16]),
+        .instr2(instr[15:11]),
+        .RegDst(RegDst),
+        // output
+        .w_reg(w_reg)
+  );
+  
+ // Connect to Register File
+ output wire [31:0] r_data1, r_data2;
+ RegFile regfile_0(
+       .clk(clk),
+       .r_reg1(instr[25:21]),
+       .r_reg2(instr[20:16]),
+       .w_reg(w_reg),
+       .w_data(w_data),
+       .RegWrite(RegWrite),
+       // output
+       .r_data1(r_data1),
+       .r_data2(r_data2)
+ );
+
+// Connect to ALU
+      output wire [31:0] ALUOutput;
+      output wire Zero;
+      ALU(
+            .data_in1(r_data1),
+            .data_in2(data_in2),
+            .ALUOp(ALUCtrl);
+            // output
+            .Zero()
+      );
