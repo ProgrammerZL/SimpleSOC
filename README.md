@@ -13,9 +13,9 @@ In s_c_datapath folder. This Single cycle Datapath just a structure of CPU modul
 7. RegDst    1        0     x      x
 8. ALUSrc    0        1     1      0
 9. MemtoReg  0        1     x      x
-10.RegWrite  1        1     0      0
-11.MemRead   0        1     0      0
-12.MemWrite  0        0     1      0
-13.Branch    0        0     0      1
-14.ALUOp1    1        0     0      0
-15.ALUOp2    0        0     0      1
+10. RegWrite  1        1     0      0
+11. MemRead   0        1     0      0
+12. MemWrite  0        0     1      0
+13. Branch    0        0     0      1
+14. ALUOp1    1        0     0      0
+15. ALUOp2    0        0     0      1
