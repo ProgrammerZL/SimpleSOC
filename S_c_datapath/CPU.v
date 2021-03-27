@@ -37,7 +37,7 @@ module CPU(
   input rst_n;
   
 // Connect to Program Counter
-  output wire [31:0] pc_in, pc_out;
+  output wire [31:0] pc_out;
   PC pc_0(
     //input
     .clk(clk),
@@ -96,7 +96,7 @@ module CPU(
       // Connect to ALUCtrl
       output wire [3:0] ALUCtrl;
       ALUCtrl aluctrl_0(
-            .aluop(aluop),
+            .aluop(ALUOp),
             .opfield(instr[5:0])
             //
             .aluctrl(aluctrl)
